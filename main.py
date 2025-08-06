@@ -398,218 +398,541 @@ def create_web_app():
         except Exception as e:
             return f"❌ Error processing resume: {str(e)}", "", ""
     
-    # Create enhanced Gradio interface with custom CSS
+    # Create coding/developer-style UI with terminal aesthetics
     custom_css = """
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+    
+    :root {
+        --bg-primary: #0d1117;
+        --bg-secondary: #161b22;
+        --bg-tertiary: #21262d;
+        --border-primary: #30363d;
+        --border-accent: #58a6ff;
+        --text-primary: #e6edf3;
+        --text-secondary: #7d8590;
+        --text-accent: #58a6ff;
+        --success: #238636;
+        --error: #da3633;
+        --warning: #d29922;
+        --terminal-green: #39d353;
+        --terminal-blue: #58a6ff;
+        --terminal-purple: #bc8cff;
+        --terminal-orange: #ff7b72;
+    }
+    
     .gradio-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
+        background: var(--bg-primary) !important;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+        color: var(--text-primary) !important;
+        min-height: 100vh !important;
     }
     
     .main-header {
-        text-align: center;
-        padding: 2rem;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        margin-bottom: 2rem;
-        backdrop-filter: blur(10px);
+        background: var(--bg-secondary) !important;
+        border: 2px solid var(--border-primary) !important;
+        border-radius: 8px !important;
+        padding: 2rem !important;
+        margin: 1rem 0 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+        position: relative !important;
     }
     
-    .feature-card {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 1.5rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        margin: 1rem 0;
-        border-left: 4px solid #667eea;
-        backdrop-filter: blur(5px);
+    .main-header::before {
+        content: "// AI Resume Generator Terminal v2.0" !important;
+        position: absolute !important;
+        top: 8px !important;
+        left: 12px !important;
+        font-size: 12px !important;
+        color: var(--text-secondary) !important;
+        font-weight: 400 !important;
+    }
+    
+    .code-block {
+        background: var(--bg-tertiary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-left: 4px solid var(--terminal-blue) !important;
+        border-radius: 6px !important;
+        padding: 1.5rem !important;
+        margin: 1rem 0 !important;
+        font-family: 'Fira Code', monospace !important;
+        position: relative !important;
+    }
+    
+    .code-block::before {
+        content: "●●●" !important;
+        position: absolute !important;
+        top: 8px !important;
+        right: 12px !important;
+        color: var(--terminal-orange) !important;
+        font-size: 12px !important;
+    }
+    
+    .terminal-window {
+        background: var(--bg-secondary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-radius: 8px !important;
+        padding: 0 !important;
+        margin: 1rem 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .terminal-header {
+        background: var(--bg-tertiary) !important;
+        padding: 8px 16px !important;
+        border-bottom: 1px solid var(--border-primary) !important;
+        font-size: 12px !important;
+        color: var(--text-secondary) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    
+    .terminal-header::before {
+        content: "⬤ ⬤ ⬤" !important;
+        color: #ff5f57 #ffbd2e #28ca42 !important;
+        margin-right: auto !important;
+    }
+    
+    .terminal-body {
+        padding: 1.5rem !important;
+        background: var(--bg-secondary) !important;
+        min-height: 200px !important;
     }
     
     .generate-btn {
-        background: linear-gradient(45deg, #667eea, #764ba2) !important;
-        color: white !important;
-        border: none !important;
-        padding: 15px 30px !important;
-        font-size: 16px !important;
+        background: linear-gradient(135deg, var(--terminal-blue), var(--terminal-purple)) !important;
+        color: var(--text-primary) !important;
+        border: 2px solid var(--border-accent) !important;
+        padding: 12px 24px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
-        border-radius: 50px !important;
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3) !important;
-        transition: all 0.3s ease !important;
-        text-transform: uppercase !important;
-        letter-spacing: 1px !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        border-radius: 6px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        text-transform: none !important;
+        letter-spacing: 0.5px !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+    
+    .generate-btn::before {
+        content: "$ " !important;
+        color: var(--terminal-green) !important;
+        font-weight: bold !important;
     }
     
     .generate-btn:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4) !important;
+        background: linear-gradient(135deg, var(--terminal-purple), var(--terminal-blue)) !important;
+        border-color: var(--terminal-green) !important;
+        box-shadow: 0 0 20px rgba(88, 166, 255, 0.3) !important;
+        transform: translateY(-1px) !important;
     }
     
-    .output-section {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        padding: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: 1px solid rgba(255,255,255,0.3);
+    .input-field {
+        background: var(--bg-tertiary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-radius: 6px !important;
+        color: var(--text-primary) !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        padding: 12px !important;
+        transition: border-color 0.3s ease !important;
+    }
+    
+    .input-field:focus {
+        border-color: var(--terminal-blue) !important;
+        box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1) !important;
+        outline: none !important;
+    }
+    
+    .output-terminal {
+        background: var(--bg-secondary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        margin: 1rem 0 !important;
     }
     
     .status-success {
-        color: #10b981 !important;
+        color: var(--terminal-green) !important;
         font-weight: 600 !important;
-        font-size: 14px !important;
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+    
+    .status-success::before {
+        content: "[SUCCESS] " !important;
+        color: var(--terminal-green) !important;
     }
     
     .status-error {
-        color: #ef4444 !important;
+        color: var(--error) !important;
         font-weight: 600 !important;
-        font-size: 14px !important;
+        font-family: 'JetBrains Mono', monospace !important;
     }
     
-    .input-section {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        padding: 1.5rem;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        margin-bottom: 1rem;
+    .status-error::before {
+        content: "[ERROR] " !important;
+        color: var(--error) !important;
     }
     
     .tab-nav {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border-radius: 15px !important;
-        backdrop-filter: blur(10px) !important;
+        background: var(--bg-secondary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-radius: 8px 8px 0 0 !important;
+    }
+    
+    .tab-nav button {
+        background: var(--bg-tertiary) !important;
+        color: var(--text-secondary) !important;
+        border: none !important;
+        padding: 12px 20px !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 13px !important;
+        border-radius: 6px 6px 0 0 !important;
+        transition: all 0.3s ease !important;
+        margin: 4px 2px 0 2px !important;
+    }
+    
+    .tab-nav button.selected {
+        background: var(--bg-primary) !important;
+        color: var(--text-accent) !important;
+        border-bottom: 2px solid var(--terminal-blue) !important;
+    }
+    
+    .tab-nav button:hover {
+        background: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .accordion {
+        background: var(--bg-tertiary) !important;
+        border: 1px solid var(--border-primary) !important;
+        border-radius: 6px !important;
+        margin: 8px 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .accordion summary {
+        background: var(--bg-secondary) !important;
+        padding: 12px 16px !important;
+        cursor: pointer !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-weight: 600 !important;
+        color: var(--text-accent) !important;
+        border-bottom: 1px solid var(--border-primary) !important;
+        transition: background-color 0.3s ease !important;
+    }
+    
+    .accordion summary:hover {
+        background: var(--bg-tertiary) !important;
+    }
+    
+    .accordion[open] summary {
+        border-bottom: 1px solid var(--border-primary) !important;
+    }
+    
+    .code-comment {
+        color: var(--text-secondary) !important;
+        font-style: italic !important;
+    }
+    
+    .syntax-highlight .keyword {
+        color: var(--terminal-purple) !important;
+        font-weight: 600 !important;
+    }
+    
+    .syntax-highlight .string {
+        color: var(--terminal-green) !important;
+    }
+    
+    .syntax-highlight .function {
+        color: var(--terminal-blue) !important;
+    }
+    
+    .syntax-highlight .comment {
+        color: var(--text-secondary) !important;
+        font-style: italic !important;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px !important;
+        height: 8px !important;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: var(--bg-primary) !important;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: var(--border-primary) !important;
+        border-radius: 4px !important;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary) !important;
+    }
+    
+    /* Loading animation */
+    @keyframes terminal-blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
+    .terminal-cursor::after {
+        content: "▋" !important;
+        color: var(--terminal-green) !important;
+        animation: terminal-blink 1s infinite !important;
+    }
+    
+    /* Glowing effect for active elements */
+    .glow {
+        box-shadow: 0 0 10px rgba(88, 166, 255, 0.3) !important;
+    }
+    
+    /* File upload styling */
+    .file-upload {
+        border: 2px dashed var(--border-primary) !important;
+        border-radius: 8px !important;
+        padding: 2rem !important;
+        text-align: center !important;
+        background: var(--bg-tertiary) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .file-upload:hover {
+        border-color: var(--terminal-blue) !important;
+        background: var(--bg-secondary) !important;
     }
     """
     
     with gr.Blocks(
-        title="🤖 AI Resume & Cover Letter Generator", 
-        theme=gr.themes.Default(
+        title="AI Resume Generator Terminal", 
+        theme=gr.themes.Base(
             primary_hue="blue",
-            secondary_hue="purple",
+            secondary_hue="purple", 
             neutral_hue="slate",
-            font=gr.themes.GoogleFont("Inter")
+            font=gr.themes.GoogleFont("JetBrains Mono")
+        ).set(
+            body_background_color="#0d1117",
+            body_text_color="#e6edf3",
+            background_fill_primary="#161b22",
+            background_fill_secondary="#21262d",
+            border_color_primary="#30363d",
+            color_accent="#58a6ff"
         ),
         css=custom_css
     ) as app:
         
-        # Enhanced Header
+        # Coding-style Header
         with gr.Row(elem_classes="main-header"):
             gr.Markdown("""
-            <div style="text-align: center;">
-                <h1 style="color: #1f2937; font-size: 3rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    🤖 AI Resume & Cover Letter Generator
-                </h1>
-                <p style="color: #6b7280; font-size: 1.25rem; margin-bottom: 2rem; font-weight: 500;">
-                    Transform your career with AI-powered resume optimization and personalized cover letters
-                </p>
-                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                    <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem 2rem; border-radius: 50px; color: #667eea; font-weight: 600;">
-                        ✨ BART AI Summarization
+            <div style="margin-top: 1.5rem;">
+                <div style="font-family: 'JetBrains Mono', monospace; margin-bottom: 2rem;">
+                    <div style="color: #7d8590; font-size: 14px; margin-bottom: 0.5rem;">
+                        <span style="color: #39d353;">●</span> System Status: Online | 
+                        <span style="color: #58a6ff;">Models:</span> BART + GPT-2 | 
+                        <span style="color: #bc8cff;">Mode:</span> Local Processing
                     </div>
-                    <div style="background: rgba(118, 75, 162, 0.1); padding: 1rem 2rem; border-radius: 50px; color: #764ba2; font-weight: 600;">
-                        🧠 GPT-2 Generation
+                    <h1 style="color: #e6edf3; font-size: 2.5rem; font-weight: 700; margin: 1rem 0; font-family: 'JetBrains Mono', monospace;">
+                        <span style="color: #ff7b72;">class</span> 
+                        <span style="color: #58a6ff;">AIResumeGenerator</span><span style="color: #e6edf3;">:</span>
+                    </h1>
+                    <div style="color: #7d8590; font-size: 16px; margin-bottom: 2rem; font-family: 'JetBrains Mono', monospace;">
+                        <span style="color: #7d8590;">"""</span><br>
+                        <span style="margin-left: 1rem;">Transform your career with AI-powered resume optimization</span><br>
+                        <span style="margin-left: 1rem;">and personalized cover letter generation.</span><br>
+                        <span style="color: #7d8590;">"""</span>
                     </div>
-                    <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem 2rem; border-radius: 50px; color: #10b981; font-weight: 600;">
-                        🔒 100% Private
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                    <div style="background: #21262d; border: 1px solid #30363d; border-left: 3px solid #39d353; padding: 1rem; border-radius: 6px;">
+                        <div style="color: #39d353; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+                            BART_SUMMARIZER
+                        </div>
+                        <div style="color: #7d8590; font-size: 11px; margin-top: 4px;">
+                            facebook/bart-large-cnn
+                        </div>
+                    </div>
+                    <div style="background: #21262d; border: 1px solid #30363d; border-left: 3px solid #58a6ff; padding: 1rem; border-radius: 6px;">
+                        <div style="color: #58a6ff; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+                            GPT2_GENERATOR
+                        </div>
+                        <div style="color: #7d8590; font-size: 11px; margin-top: 4px;">
+                            transformers.gpt2
+                        </div>
+                    </div>
+                    <div style="background: #21262d; border: 1px solid #30363d; border-left: 3px solid #bc8cff; padding: 1rem; border-radius: 6px;">
+                        <div style="color: #bc8cff; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+                            PRIVACY_MODE
+                        </div>
+                        <div style="color: #7d8590; font-size: 11px; margin-top: 4px;">
+                            local_processing=True
+                        </div>
                     </div>
                 </div>
             </div>
             """, elem_classes="main-header")
         
-        with gr.Tab("📄 Upload Resume File", elem_classes="tab-nav"):
+        with gr.Tab("🗂️ upload_resume.py", elem_classes="tab-nav"):
             with gr.Row(equal_height=True):
-                # Input Section
-                with gr.Column(scale=1, elem_classes="input-section"):
+                # Input Section - Terminal Style
+                with gr.Column(scale=1, elem_classes="terminal-window"):
                     gr.Markdown("""
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <h3 style="color: #374151; font-weight: 700; font-size: 1.5rem;">📝 Your Information</h3>
-                        <p style="color: #6b7280; font-size: 0.95rem;">Upload your resume and provide job details</p>
+                    <div class="terminal-header">
+                        <span style="color: #39d353;">user@ai-resume-gen</span>:<span style="color: #58a6ff;">~/input</span>$ 
+                        <span style="color: #e6edf3;">python upload_resume.py</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div style="color: #7d8590; font-size: 13px; margin-bottom: 1rem;">
+                            <span style="color: #39d353;"># Initialize input parameters</span><br>
+                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">collect_user_data</span>():
+                        </div>
+                    </div>
+                    """)
+                    
+                    gr.Markdown("""
+                    <div style="color: #7d8590; font-size: 12px; margin: 1rem 0;">
+                        <span style="color: #ff7b72;">resume_file</span> = <span style="color: #39d353;">input</span>(<span style="color: #a5d6ff;">"Upload resume file: "</span>)
                     </div>
                     """)
                     
                     file_input = gr.File(
-                        label="📎 Upload Your Resume",
+                        label="resume_file = ",
                         file_types=[".pdf", ".docx", ".txt"],
                         interactive=True,
                         show_label=True,
-                        container=True
+                        elem_classes="input-field file-upload"
                     )
                     
+                    gr.Markdown("""
+                    <div style="color: #7d8590; font-size: 12px; margin: 1rem 0;">
+                        <span style="color: #ff7b72;">job_description</span> = <span style="color: #39d353;">input</span>(<span style="color: #a5d6ff;">"Paste job posting: "</span>)
+                    </div>
+                    """)
+                    
                     job_desc_input1 = gr.Textbox(
-                        label="💼 Job Description",
-                        placeholder="📋 Paste the complete job posting here...\n\nInclude:\n• Job requirements\n• Responsibilities  \n• Required skills\n• Company information",
-                        lines=10,
-                        max_lines=15,
-                        show_copy_button=True
+                        label="job_description = ",
+                        placeholder="# Paste the complete job posting here\n# Include: requirements, responsibilities, skills, company info\n\n",
+                        lines=8,
+                        max_lines=12,
+                        show_copy_button=True,
+                        elem_classes="input-field"
                     )
+                    
+                    gr.Markdown("""
+                    <div style="color: #7d8590; font-size: 12px; margin: 1rem 0;">
+                        <span style="color: #39d353;"># Optional parameters for personalization</span>
+                    </div>
+                    """)
                     
                     with gr.Row():
                         company_input1 = gr.Textbox(
-                            label="🏢 Company Name",
-                            placeholder="e.g., Google, Microsoft, Apple...",
-                            scale=2
+                            label="company_name = ",
+                            placeholder="# e.g., 'Google', 'Microsoft', 'Apple'",
+                            scale=2,
+                            elem_classes="input-field"
                         )
                         
                         position_input1 = gr.Textbox(
-                            label="💼 Position Title", 
-                            placeholder="e.g., Software Engineer, Data Scientist...",
-                            scale=2
+                            label="position_title = ", 
+                            placeholder="# e.g., 'Software Engineer', 'Data Scientist'",
+                            scale=2,
+                            elem_classes="input-field"
                         )
                     
                     gr.Markdown("""
-                    <div style="text-align: center; margin: 1.5rem 0;">
-                        <p style="color: #6b7280; font-size: 0.85rem; font-style: italic;">
-                            💡 <strong>Pro Tip:</strong> More detailed job descriptions lead to better customized results!
-                        </p>
+                    <div style="background: #21262d; border: 1px solid #30363d; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+                        <div style="color: #7d8590; font-size: 11px;">
+                            <span style="color: #39d353;"># Pro tip:</span> More detailed input = better AI results<br>
+                            <span style="color: #39d353;"># Function:</span> process_resume_data(file, job_desc, company, position)
+                        </div>
                     </div>
                     """)
                     
                     process_btn1 = gr.Button(
-                        "🚀 Generate AI-Powered Resume & Cover Letter", 
+                        "Execute AI Generation", 
                         variant="primary",
                         elem_classes="generate-btn",
                         size="lg"
                     )
                 
-                # Output Section
-                with gr.Column(scale=1, elem_classes="output-section"):
+                # Output Section - Terminal Style
+                with gr.Column(scale=1, elem_classes="terminal-window"):
                     gr.Markdown("""
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <h3 style="color: #374151; font-weight: 700; font-size: 1.5rem;">✨ AI-Generated Results</h3>
-                        <p style="color: #6b7280; font-size: 0.95rem;">Your personalized resume summary and cover letter</p>
+                    <div class="terminal-header">
+                        <span style="color: #39d353;">ai-engine@localhost</span>:<span style="color: #58a6ff;">~/output</span>$ 
+                        <span style="color: #e6edf3;">python generate_results.py</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div style="color: #7d8590; font-size: 13px; margin-bottom: 1rem;">
+                            <span style="color: #39d353;"># AI Generation Results</span><br>
+                            <span style="color: #bc8cff;">import</span> <span style="color: #e6edf3;">bart_summarizer, gpt2_generator</span>
+                        </div>
+                    </div>
+                    """)
+                    
+                    gr.Markdown("""
+                    <div style="color: #7d8590; font-size: 12px; margin: 1rem 0;">
+                        <span style="color: #ff7b72;">execution_status</span> = <span style="color: #39d353;">monitor_process</span>()
                     </div>
                     """)
                     
                     status1 = gr.Textbox(
-                        label="📊 Processing Status", 
+                        label="execution_status = ", 
                         interactive=False,
                         show_label=True,
-                        placeholder="Ready to generate your AI-powered content..."
+                        placeholder="# Waiting for execution command...",
+                        elem_classes="input-field"
                     )
                     
-                    with gr.Accordion("📋 Resume Summary", open=True):
-                        summary_output1 = gr.Textbox(
-                            label="",
-                            lines=6,
-                            interactive=True,
-                            placeholder="Your AI-generated resume summary will appear here...",
-                            show_copy_button=True,
-                            show_label=False
-                        )
+                    gr.Markdown("""
+                    <div style="background: #21262d; border: 1px solid #30363d; border-left: 3px solid #39d353; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+                        <div style="color: #39d353; font-size: 12px; font-weight: 600; margin-bottom: 0.5rem;">
+                            bart_summary = summarize_resume()
+                        </div>
+                        <div style="color: #7d8590; font-size: 11px;">
+                            # AI-extracted key achievements and skills
+                        </div>
+                    </div>
+                    """)
                     
-                    with gr.Accordion("✍️ Cover Letter", open=True):
-                        cover_letter_output1 = gr.Textbox(
-                            label="",
-                            lines=12,
-                            interactive=True,
-                            placeholder="Your personalized cover letter will be generated here...",
-                            show_copy_button=True,
-                            show_label=False
-                        )
+                    summary_output1 = gr.Textbox(
+                        label="bart_summary = ",
+                        lines=6,
+                        interactive=True,
+                        placeholder="# BART AI summary will be generated here...\n# Key achievements, skills, and experience extracted from resume",
+                        show_copy_button=True,
+                        elem_classes="input-field"
+                    )
                     
                     gr.Markdown("""
-                    <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 10px;">
-                        <p style="color: #3b82f6; font-size: 0.9rem; font-weight: 500; margin: 0;">
-                            📝 <strong>Edit & Copy:</strong> You can modify the generated content before using it!
-                        </p>
+                    <div style="background: #21262d; border: 1px solid #30363d; border-left: 3px solid #58a6ff; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+                        <div style="color: #58a6ff; font-size: 12px; font-weight: 600; margin-bottom: 0.5rem;">
+                            cover_letter = generate_personalized_content()
+                        </div>
+                        <div style="color: #7d8590; font-size: 11px;">
+                            # GPT-2 generated cover letter tailored to job posting
+                        </div>
+                    </div>
+                    """)
+                    
+                    cover_letter_output1 = gr.Textbox(
+                        label="cover_letter = ",
+                        lines=12,
+                        interactive=True,
+                        placeholder="# Personalized cover letter will be generated here...\n# Tailored to specific job requirements and company\n\n# Dear Hiring Manager,\n# [AI-generated content based on your resume and job posting]",
+                        show_copy_button=True,
+                        elem_classes="input-field"
+                    )
+                    
+                    gr.Markdown("""
+                    <div style="background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+                        <div style="color: #7d8590; font-size: 11px;">
+                            <span style="color: #39d353;"># Output ready for editing and copying</span><br>
+                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">edit_and_export</span>(content): <span style="color: #39d353;">return</span> modified_content<br>
+                            <span style="color: #7d8590;"># Modify the generated content above as needed</span>
+                        </div>
                     </div>
                     """)
             
@@ -619,7 +942,7 @@ def create_web_app():
                 outputs=[summary_output1, cover_letter_output1, status1]
             )
         
-        with gr.Tab("✍️ Paste Resume Text", elem_classes="tab-nav"):
+        with gr.Tab("📝 paste_resume.py", elem_classes="tab-nav"):
             with gr.Row(equal_height=True):
                 # Input Section
                 with gr.Column(scale=1, elem_classes="input-section"):
@@ -724,156 +1047,88 @@ def create_web_app():
                 outputs=[summary_output2, cover_letter_output2, status2]
             )
         
-        with gr.Tab("ℹ️ About & Help", elem_classes="tab-nav"):
-            with gr.Column(elem_classes="feature-card"):
+        with gr.Tab("📖 documentation.md", elem_classes="tab-nav"):
+            with gr.Column(elem_classes="code-block"):
                 gr.Markdown("""
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="color: #374151; font-weight: 800; font-size: 2rem; margin-bottom: 1rem;">
-                        🚀 About This AI Tool
-                    </h2>
-                    <p style="color: #6b7280; font-size: 1.1rem; font-weight: 500;">
-                        Professional resume optimization powered by cutting-edge AI technology
-                    </p>
-                </div>
-                """)
-            
-            with gr.Row():
-                with gr.Column(scale=1, elem_classes="feature-card"):
-                    gr.Markdown("""
-                    ### 🤖 **How It Works**
+                <div style="font-family: 'JetBrains Mono', monospace; color: #e6edf3;">
+                    <div style="color: #7d8590; font-size: 12px; margin-bottom: 1rem;">
+                        <span style="color: #39d353;"># AI Resume Generator Documentation</span><br>
+                        <span style="color: #39d353;"># Version:</span> 2.0<br>
+                        <span style="color: #39d353;"># Models:</span> BART + GPT-2<br>
+                        <span style="color: #39d353;"># Mode:</span> Local Processing
+                    </div>
                     
-                    Our AI system uses **state-of-the-art pre-trained models**:
+                    <h3 style="color: #58a6ff; font-size: 1.5rem; margin: 1.5rem 0;">
+                        <span style="color: #bc8cff;">class</span> SystemInfo:
+                    </h3>
                     
-                    🧠 **BART-large-CNN**
-                    - Intelligently summarizes your resume
-                    - Extracts key achievements and skills
-                    - Creates ATS-friendly summaries
-                    
-                    ✍️ **GPT-2 Language Model**
-                    - Generates personalized cover letters
-                    - Tailors content to specific job requirements
-                    - Maintains professional tone and structure
-                    
-                    🔒 **100% Private & Secure**
-                    - All processing happens locally on your device
-                    - No data sent to external servers
-                    - Your information stays completely private
-                    """)
-                
-                with gr.Column(scale=1, elem_classes="feature-card"):
-                    gr.Markdown("""
-                    ### 💡 **Pro Tips for Best Results**
-                    
-                    📄 **For Your Resume:**
-                    - Include clear sections (Experience, Skills, Education)
-                    - Use bullet points for achievements
-                    - Quantify your accomplishments with numbers
-                    - Keep formatting clean and consistent
-                    
-                    💼 **For Job Descriptions:**
-                    - Paste the complete job posting
-                    - Include requirements and responsibilities
-                    - Don't forget company information
-                    - The more detail, the better the customization!
-                    
-                    🎯 **Company & Position:**
-                    - Always fill in company name when possible
-                    - Be specific with position titles
-                    - This helps personalize your cover letter
-                    """)
-            
-            with gr.Row():
-                with gr.Column(scale=1, elem_classes="feature-card"):
-                    gr.Markdown("""
-                    ### 🔧 **Technical Specifications**
-                    
-                    **System Requirements:**
-                    - 🍎 macOS (optimized) / Windows / Linux
-                    - 💾 8GB RAM minimum (works great on Macs!)
-                    - 🌐 Internet (first run only - downloads models)
-                    - 💾 ~2GB storage for AI models
-                    
-                    **Performance:**
-                    - ⚡ Resume processing: 30-60 seconds
-                    - ✍️ Cover letter generation: 45-90 seconds
-                    - 🧠 Memory usage: 4-6GB during processing
-                    - 🚀 CPU-only processing (no GPU needed)
-                    """)
-                
-                with gr.Column(scale=1, elem_classes="feature-card"):
-                    gr.Markdown("""
-                    ### 🎯 **Perfect For**
-                    
-                    👔 **Job Seekers**
-                    - Quickly customize applications for multiple positions
-                    - Create professional summaries from detailed resumes
-                    - Generate compelling cover letters in minutes
-                    
-                    🎓 **Students & New Graduates**
-                    - Transform academic experience into professional language
-                    - Create first professional resume summaries
-                    - Learn proper cover letter structure
-                    
-                    💼 **Career Changers**
-                    - Highlight transferable skills effectively
-                    - Reframe experience for new industries
-                    - Create targeted applications quickly
-                    
-                    🚀 **Professionals**
-                    - Keep application materials updated easily
-                    - Customize for different opportunities
-                    - Save time on repetitive writing tasks
-                    """)
-            
-            with gr.Column(elem_classes="feature-card"):
-                gr.Markdown("""
-                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 15px; margin: 1rem 0;">
-                    <h3 style="color: #374151; font-weight: 700; margin-bottom: 1rem;">🌟 Why Choose Our AI Resume Generator?</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-                        <div>
-                            <h4 style="color: #667eea; font-weight: 600;">🏆 Professional Quality</h4>
-                            <p style="color: #6b7280; font-size: 0.9rem;">Industry-standard resume summaries and cover letters</p>
+                    <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
+                        <div style="margin: 0.5rem 0;">
+                            <span style="color: #ff7b72;">models</span> = {<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"summarizer"</span>: <span style="color: #a5d6ff;">"facebook/bart-large-cnn"</span>,<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"generator"</span>: <span style="color: #a5d6ff;">"gpt2"</span><br>
+                            }
                         </div>
-                        <div>
-                            <h4 style="color: #764ba2; font-weight: 600;">⚡ Lightning Fast</h4>
-                            <p style="color: #6b7280; font-size: 0.9rem;">Generate personalized content in under 2 minutes</p>
+                        
+                        <div style="margin: 1rem 0;">
+                            <span style="color: #ff7b72;">requirements</span> = {<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"ram"</span>: <span style="color: #a5d6ff;">"8GB minimum"</span>,<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"cpu_only"</span>: <span style="color: #79c0ff;">True</span>,<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"privacy"</span>: <span style="color: #a5d6ff;">"100% local processing"</span><br>
+                            }
                         </div>
-                        <div>
-                            <h4 style="color: #10b981; font-weight: 600;">🔒 Completely Private</h4>
-                            <p style="color: #6b7280; font-size: 0.9rem;">Your data never leaves your computer</p>
-                        </div>
-                        <div>
-                            <h4 style="color: #f59e0b; font-weight: 600;">💰 Free Forever</h4>
-                            <p style="color: #6b7280; font-size: 0.9rem;">No subscriptions, no hidden costs</p>
+                        
+                        <div style="margin: 1rem 0;">
+                            <span style="color: #ff7b72;">performance</span> = {<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"resume_processing"</span>: <span style="color: #a5d6ff;">"30-60 seconds"</span>,<br>
+                            <span style="margin-left: 2rem; color: #39d353;">"cover_letter_gen"</span>: <span style="color: #a5d6ff;">"45-90 seconds"</span><br>
+                            }
                         </div>
                     </div>
+                    
+                    <h3 style="color: #58a6ff; font-size: 1.5rem; margin: 2rem 0 1rem 0;">
+                        <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">usage_guide</span>():
+                    </h3>
+                    
+                    <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
+                        <span style="color: #39d353;"># Step 1: Input your resume</span><br>
+                        resume = upload_file() <span style="color: #7d8590;">or</span> paste_text()<br><br>
+                        
+                        <span style="color: #39d353;"># Step 2: Add job posting</span><br>
+                        job_desc = input(<span style="color: #a5d6ff;">"Complete job description"</span>)<br><br>
+                        
+                        <span style="color: #39d353;"># Step 3: Optional personalization</span><br>
+                        company = input(<span style="color: #a5d6ff;">"Company name"</span>)  <span style="color: #7d8590;"># Optional</span><br>
+                        position = input(<span style="color: #a5d6ff;">"Position title"</span>)  <span style="color: #7d8590;"># Optional</span><br><br>
+                        
+                        <span style="color: #39d353;"># Step 4: Execute AI generation</span><br>
+                        results = ai_engine.process(resume, job_desc, company, position)<br><br>
+                        
+                        <span style="color: #39d353;"># Step 5: Edit and export</span><br>
+                        <span style="color: #bc8cff;">return</span> edit_and_copy(results)
+                    </div>
+                    
+                    <h3 style="color: #58a6ff; font-size: 1.5rem; margin: 2rem 0 1rem 0;">
+                        <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">pro_tips</span>():
+                    </h3>
+                    
+                    <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
+                        tips = [<br>
+                        <span style="margin-left: 2rem; color: #a5d6ff;">"Include quantifiable achievements in resume"</span>,<br>
+                        <span style="margin-left: 2rem; color: #a5d6ff;">"Paste complete job posting for best results"</span>,<br>
+                        <span style="margin-left: 2rem; color: #a5d6ff;">"Add company name for personalized cover letters"</span>,<br>
+                        <span style="margin-left: 2rem; color: #a5d6ff;">"Review and edit AI-generated content"</span><br>
+                        ]<br>
+                        <span style="color: #bc8cff;">return</span> tips
+                    </div>
+                    
+                    <div style="background: #21262d; border: 1px solid #30363d; padding: 1rem; border-radius: 6px; margin: 2rem 0; color: #7d8590; font-size: 12px;">
+                        <span style="color: #39d353;"># System Status: READY</span><br>
+                        <span style="color: #39d353;"># Models: LOADED</span><br>
+                        <span style="color: #39d353;"># Privacy: LOCAL_PROCESSING_ONLY</span><br>
+                        <span style="color: #39d353;"># Cost: FREE_FOREVER</span>
+                    </div>
                 </div>
-                """)
-            
-            with gr.Column(elem_classes="feature-card"):
-                gr.Markdown("""
-                ### 📝 **How to Use - Step by Step**
-                
-                1. **Choose Your Input Method**
-                   - 📄 Upload a PDF, DOCX, or TXT file
-                   - ✍️ Or paste your resume text directly
-                
-                2. **Add Job Information**
-                   - 📋 Paste the complete job description
-                   - 🏢 Enter company name (optional but recommended)
-                   - 💼 Add position title (optional but recommended)
-                
-                3. **Generate AI Content**
-                   - 🚀 Click the generate button
-                   - ⏱️ Wait 1-2 minutes for AI processing
-                   - ✨ Get your personalized results!
-                
-                4. **Review and Customize**
-                   - 📖 Read through the generated content
-                   - ✏️ Edit directly in the text boxes
-                   - 📋 Copy to your clipboard when ready
-                
-                **Remember:** The generated content is a starting point - feel free to edit and personalize it further!
                 """)
     
     return app
@@ -952,7 +1207,7 @@ def run_cli():
 # ==========================================
 
 if __name__ == "__main__":
-    print("🍎 AI Resume Generator - Mac Optimized!")
+    print("💻 AI Resume Generator - Terminal Edition!")
     print("Choose interface:")
     print("1. 🌐 Web Interface (Recommended)")
     print("2. 💻 Command Line Interface")
@@ -962,7 +1217,7 @@ if __name__ == "__main__":
     if choice == "2":
         run_cli()
     else:
-        print("\n🚀 Starting web interface...")
+        print("\n🚀 Starting terminal-style web interface...")
         print("📱 Open your browser to the URL shown below")
         
         app = create_web_app()
