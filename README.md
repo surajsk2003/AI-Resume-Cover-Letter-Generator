@@ -18,7 +18,7 @@
 - [Usage](#-usage)
 - [Project Architecture](#️-project-architecture)
 - [Sample Outputs](#-sample-outputs)
-- [AWS Deployment](#-aws-deployment)
+- [Free Hosting](#-free-hosting)
 - [Troubleshooting](#-troubleshooting)
 - [Contributing](#-contributing)
 - [Known Issues & Future Work](#-known-issues--future-work)
@@ -54,7 +54,7 @@ This project was developed as a production-ready AI tool for career development,
 - 🔄 **Real-time Processing Status** - Live feedback during AI generation
 - ✏️ **Editable Results** - Modify AI-generated content before using
 - 💾 **Virtual Environment Support** - Isolated Python environment
-- 🌐 **AWS Deployment Ready** - Production deployment scripts included
+- 🌐 **Free Hosting Ready** - Deploy to Hugging Face Spaces instantly
 
 ## 🛠️ Tech Stack
 
@@ -76,10 +76,10 @@ This project was developed as a production-ready AI tool for career development,
 - **Styling**: CSS3 with GitHub-inspired color palette
 
 ### DevOps & Deployment
-- **Containerization**: Docker support
-- **Cloud Platform**: AWS EC2 (free tier optimized)
+- **Free Hosting**: Hugging Face Spaces
 - **Environment Management**: Python venv
 - **Process Management**: Automated setup scripts
+- **Instant Deployment**: No server setup required
 
 ## 🚀 Installation & Setup
 
@@ -198,15 +198,14 @@ python main.py
 ### Directory Structure
 ```
 AI Resume & Cover Letter Generator/
-├── main.py                 # Main application with web interface
-├── deploy_aws.py          # AWS-optimized deployment version
-├── requirements.txt       # Python dependencies
-├── setup_venv.sh         # Virtual environment setup script
-├── setup.sh              # Global setup script (alternative)
-├── sample_resume.txt     # Test resume file
-├── ai_resume_env/        # Virtual environment (auto-created)
-├── README.md             # Project documentation
-└── .gitignore            # Git ignore file
+├── app.py                 # Hugging Face Spaces optimized version
+├── main.py               # Local development version
+├── requirements.txt      # Python dependencies (HF Spaces ready)
+├── setup_venv.sh        # Virtual environment setup script
+├── sample_resume.txt    # Test resume file
+├── ai_resume_env/       # Virtual environment (auto-created)
+├── README.md            # Project documentation
+└── .gitignore           # Git ignore file
 ```
 
 ### System Architecture
@@ -291,71 +290,112 @@ Best regards,
 - **Model Download**: ~2GB (one-time)
 - **Accuracy**: 85-92% user satisfaction rate
 
-## ☁️ AWS Deployment
+## 🆓 Free Hosting
 
-### Free Tier Deployment
+Deploy your AI Resume Generator to **Hugging Face Spaces** completely free!
 
-#### 1. Launch EC2 Instance
-```bash
-# Instance Configuration
-Instance Type: t2.micro (1 vCPU, 1GB RAM)
-OS: Amazon Linux 2 or Ubuntu 20.04
-Storage: 8GB GP2
-Security Group: HTTP (80), HTTPS (443), Custom TCP (7860)
+### 🌟 Why Hugging Face Spaces?
+- ✅ **100% Free Forever** - No credit card required
+- ✅ **Perfect for AI Apps** - Designed for Gradio interfaces
+- ✅ **Instant Deployment** - Live in minutes
+- ✅ **Public URL** - Share with anyone
+- ✅ **No Server Management** - Zero maintenance
+
+### 🚀 Quick Deployment (5 minutes)
+
+#### Step 1: Create Account
+1. Go to [huggingface.co](https://huggingface.co)
+2. Sign up for free account
+3. Verify your email
+
+#### Step 2: Create New Space
+1. Click **"Create new Space"**
+2. Choose **"Gradio"** as SDK
+3. Name: `ai-resume-generator` (or your choice)
+4. Set to **"Public"** for free hosting
+
+#### Step 3: Upload Files
+Upload these files to your Space:
+
+**📁 Required Files:**
+```
+ai-resume-generator/
+├── app.py              # Main application (already created)
+├── requirements.txt    # Dependencies (updated for HF)
+└── README.md          # Project documentation
 ```
 
-#### 2. Server Setup
-```bash
-# Connect to instance
-ssh -i your-key.pem ec2-user@your-public-ip
+#### Step 4: Deployment
+- Files auto-deploy when uploaded
+- Build logs show in real-time
+- Your app goes live at: `https://huggingface.co/spaces/YOUR_USERNAME/ai-resume-generator`
 
-# Update system
-sudo yum update -y
+### 📝 File Preparation
 
-# Install Python and dependencies
-sudo yum install python3 python3-pip git -y
+**app.py** ✅ Already optimized for Hugging Face Spaces
+**requirements.txt** ✅ Updated with minimal dependencies
+**README.md** ✅ Professional documentation included
 
-# Clone project
-git clone <your-repo-url>
-cd "AI Resume & Cover Letter Generator"
+### 🔧 Advanced Configuration
 
-# Setup environment
-python3 -m venv ai_resume_env
-source ai_resume_env/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Run AWS-optimized version
-python3 deploy_aws.py
+#### Custom Domain (Optional)
+```python
+# In app.py, modify launch parameters:
+app.launch(
+    share=True,          # Creates temporary public link
+    server_name="0.0.0.0",
+    server_port=7860
+)
 ```
 
-#### 3. Access Application
-- URL: `http://your-ec2-public-ip:7860`
-- The `deploy_aws.py` version includes memory optimizations for t2.micro
-
-#### 4. Production Configuration
-```bash
-# Optional: Set up systemd service
-sudo nano /etc/systemd/system/ai-resume-gen.service
-
-# Optional: Configure nginx reverse proxy
-sudo yum install nginx -y
-# Configure nginx to proxy port 80 to 7860
+#### Environment Variables
+```python
+# Add to app.py if needed:
+import os
+HF_TOKEN = os.getenv("HF_TOKEN")  # Hugging Face token
+DEBUG_MODE = os.getenv("DEBUG", "False").lower() == "true"
 ```
 
-### Docker Deployment (Optional)
-```dockerfile
-FROM python:3.9-slim
+### 🎯 Alternative Free Hosting Options
 
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-EXPOSE 7860
-
-CMD ["python", "main.py"]
+#### 1. **Google Colab** (Temporary)
+```python
+# Install and run in Colab notebook:
+!pip install -r requirements.txt
+!python app.py
+# Use ngrok for public access
 ```
+
+#### 2. **Replit** (Always-on)
+- Fork project to Replit
+- Install dependencies
+- Run `python app.py`
+- Get instant public URL
+
+#### 3. **Railway.app** ($5/month free credit)
+- Connect GitHub repository
+- Auto-deploy on push
+- Custom domain included
+
+### 📊 Hosting Comparison
+
+| Platform | Cost | Setup Time | Custom Domain | Persistent |
+|----------|------|------------|---------------|------------|
+| **HF Spaces** | 🆓 Free | 5 min | ❌ | ✅ |
+| **Google Colab** | 🆓 Free | 2 min | ❌ | ❌ |
+| **Replit** | 🆓 Free | 10 min | 💰 Paid | ✅ |
+| **Railway** | 💰 $5/mo | 15 min | ✅ | ✅ |
+
+### 🚀 One-Click Deploy to Hugging Face
+
+**Ready-to-deploy package** includes:
+- Optimized `app.py` for Hugging Face Spaces
+- Minimal `requirements.txt` 
+- Professional `README.md`
+- Terminal-style UI with coding theme
+
+**Your app URL will be:**
+`https://huggingface.co/spaces/YOUR_USERNAME/ai-resume-generator`
 
 ## 🔍 Troubleshooting
 
