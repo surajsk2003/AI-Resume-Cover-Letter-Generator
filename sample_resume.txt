@@ -1,0 +1,60 @@
+John Smith
+Software Engineer
+Email: john.smith@email.com | Phone: (555) 123-4567
+LinkedIn: linkedin.com/in/johnsmith | GitHub: github.com/johnsmith
+
+PROFESSIONAL SUMMARY
+Experienced Full Stack Software Engineer with 5+ years developing scalable web applications and mobile solutions. Proficient in Python, JavaScript, React, and cloud technologies. Strong background in agile development, team leadership, and system architecture. Successfully led projects serving over 100,000 users with 99.9% uptime.
+
+TECHNICAL SKILLS
+• Programming Languages: Python, JavaScript, TypeScript, Java, Go
+• Frontend: React.js, Vue.js, Angular, HTML5, CSS3, Redux
+• Backend: Node.js, Django, Flask, Express.js, RESTful APIs, GraphQL
+• Databases: PostgreSQL, MongoDB, MySQL, Redis
+• Cloud & DevOps: AWS (EC2, S3, Lambda), Docker, Kubernetes, CI/CD, Git
+• Tools: Jest, Pytest, Webpack, Babel, Linux, Nginx
+
+PROFESSIONAL EXPERIENCE
+
+Senior Software Engineer | TechCorp Inc. | 2021 - Present
+• Led development of microservices architecture serving 100K+ daily active users
+• Implemented automated testing pipeline, reducing deployment time by 60%
+• Mentored junior developers and conducted code reviews for team of 8
+• Designed and built real-time analytics dashboard using React and WebSockets
+• Optimized database queries resulting in 40% improvement in application performance
+
+Software Engineer | StartupXYZ | 2019 - 2021
+• Developed full-stack e-commerce platform using Python Django and React
+• Built RESTful APIs handling 50K+ transactions per month
+• Implemented payment processing integration with Stripe and PayPal
+• Created responsive mobile-first design supporting iOS and Android
+• Collaborated with product team to define technical requirements
+
+Junior Developer | WebSolutions LLC | 2018 - 2019
+• Built custom WordPress plugins and themes for client websites
+• Maintained legacy PHP applications and performed bug fixes
+• Learned modern JavaScript frameworks and cloud deployment
+• Participated in daily standups and agile development processes
+
+PROJECTS
+
+E-Learning Platform (2022)
+• Full-stack application with video streaming, user authentication, and progress tracking
+• Technologies: React, Node.js, MongoDB, AWS S3
+• Deployed to AWS with automatic scaling and CI/CD pipeline
+
+Task Management App (2021)
+• Mobile-responsive web application with real-time collaboration features
+• Technologies: Vue.js, Express.js, Socket.io, PostgreSQL
+• Implemented drag-and-drop interface and push notifications
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology | 2014 - 2018
+• Relevant Coursework: Data Structures, Algorithms, Database Design, Software Engineering
+• Senior Project: Machine Learning classifier for sentiment analysis
+
+CERTIFICATIONS
+• AWS Certified Solutions Architect - Associate (2022)
+• Google Analytics Certified (2021)
+• Scrum Master Certified (2020)

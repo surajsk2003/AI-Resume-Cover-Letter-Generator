@@ -1,0 +1,18 @@
+# Core AI/ML libraries
+torch>=2.0.0
+transformers>=4.30.0
+tokenizers>=0.13.0
+
+# Document processing
+PyPDF2>=3.0.0
+python-docx>=0.8.11
+
+# Web interface
+gradio>=3.40.0
+
+# System monitoring
+psutil>=5.9.0
+
+# Standard libraries (usually included with Python)
+typing-extensions>=4.0.0
+regex>=2023.6.3
