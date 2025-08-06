@@ -713,7 +713,7 @@ def create_web_app():
             neutral_hue="slate",
             font=gr.themes.GoogleFont("JetBrains Mono")
         ).set(
-            body_background_color="#0d1117",
+            body_background_fill="#0d1117",
             body_text_color="#e6edf3",
             background_fill_primary="#161b22",
             background_fill_secondary="#21262d",
@@ -738,10 +738,10 @@ def create_web_app():
                         <span style="color: #58a6ff;">AIResumeGenerator</span><span style="color: #e6edf3;">:</span>
                     </h1>
                     <div style="color: #7d8590; font-size: 16px; margin-bottom: 2rem; font-family: 'JetBrains Mono', monospace;">
-                        <span style="color: #7d8590;">"""</span><br>
-                        <span style="margin-left: 1rem;">Transform your career with AI-powered resume optimization</span><br>
-                        <span style="margin-left: 1rem;">and personalized cover letter generation.</span><br>
-                        <span style="color: #7d8590;">"""</span>
+                        <span style="color: #7d8590;">&quot;&quot;&quot;</span>
+                        <div style="margin-left: 1rem;">Transform your career with AI-powered resume optimization</div>
+                        <div style="margin-left: 1rem;">and personalized cover letter generation.</div>
+                        <span style="color: #7d8590;">&quot;&quot;&quot;</span>
                     </div>
                 </div>
                 
@@ -785,8 +785,7 @@ def create_web_app():
                     </div>
                     <div class="terminal-body">
                         <div style="color: #7d8590; font-size: 13px; margin-bottom: 1rem;">
-                            <span style="color: #39d353;"># Initialize input parameters</span><br>
-                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">collect_user_data</span>():
+                            <span style="color: #39d353;"># Initialize input parameters</span>                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">collect_user_data</span>():
                         </div>
                     </div>
                     """)
@@ -844,8 +843,7 @@ def create_web_app():
                     gr.Markdown("""
                     <div style="background: #21262d; border: 1px solid #30363d; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
                         <div style="color: #7d8590; font-size: 11px;">
-                            <span style="color: #39d353;"># Pro tip:</span> More detailed input = better AI results<br>
-                            <span style="color: #39d353;"># Function:</span> process_resume_data(file, job_desc, company, position)
+                            <span style="color: #39d353;"># Pro tip:</span> More detailed input = better AI results                            <span style="color: #39d353;"># Function:</span> process_resume_data(file, job_desc, company, position)
                         </div>
                     </div>
                     """)
@@ -866,8 +864,7 @@ def create_web_app():
                     </div>
                     <div class="terminal-body">
                         <div style="color: #7d8590; font-size: 13px; margin-bottom: 1rem;">
-                            <span style="color: #39d353;"># AI Generation Results</span><br>
-                            <span style="color: #bc8cff;">import</span> <span style="color: #e6edf3;">bart_summarizer, gpt2_generator</span>
+                            <span style="color: #39d353;"># AI Generation Results</span>                            <span style="color: #bc8cff;">import</span> <span style="color: #e6edf3;">bart_summarizer, gpt2_generator</span>
                         </div>
                     </div>
                     """)
@@ -929,9 +926,7 @@ def create_web_app():
                     gr.Markdown("""
                     <div style="background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 1rem; margin: 1rem 0;">
                         <div style="color: #7d8590; font-size: 11px;">
-                            <span style="color: #39d353;"># Output ready for editing and copying</span><br>
-                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">edit_and_export</span>(content): <span style="color: #39d353;">return</span> modified_content<br>
-                            <span style="color: #7d8590;"># Modify the generated content above as needed</span>
+                            <span style="color: #39d353;"># Output ready for editing and copying</span>                            <span style="color: #bc8cff;">def</span> <span style="color: #58a6ff;">edit_and_export</span>(content): <span style="color: #39d353;">return</span> modified_content                            <span style="color: #7d8590;"># Modify the generated content above as needed</span>
                         </div>
                     </div>
                     """)
@@ -1052,10 +1047,7 @@ def create_web_app():
                 gr.Markdown("""
                 <div style="font-family: 'JetBrains Mono', monospace; color: #e6edf3;">
                     <div style="color: #7d8590; font-size: 12px; margin-bottom: 1rem;">
-                        <span style="color: #39d353;"># AI Resume Generator Documentation</span><br>
-                        <span style="color: #39d353;"># Version:</span> 2.0<br>
-                        <span style="color: #39d353;"># Models:</span> BART + GPT-2<br>
-                        <span style="color: #39d353;"># Mode:</span> Local Processing
+                        <span style="color: #39d353;"># AI Resume Generator Documentation</span>                        <span style="color: #39d353;"># Version:</span> 2.0                        <span style="color: #39d353;"># Models:</span> BART + GPT-2                        <span style="color: #39d353;"># Mode:</span> Local Processing
                     </div>
                     
                     <h3 style="color: #58a6ff; font-size: 1.5rem; margin: 1.5rem 0;">
@@ -1064,25 +1056,15 @@ def create_web_app():
                     
                     <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
                         <div style="margin: 0.5rem 0;">
-                            <span style="color: #ff7b72;">models</span> = {<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"summarizer"</span>: <span style="color: #a5d6ff;">"facebook/bart-large-cnn"</span>,<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"generator"</span>: <span style="color: #a5d6ff;">"gpt2"</span><br>
-                            }
+                            <span style="color: #ff7b72;">models</span> = {                            <span style="margin-left: 2rem; color: #39d353;">"summarizer"</span>: <span style="color: #a5d6ff;">"facebook/bart-large-cnn"</span>,                            <span style="margin-left: 2rem; color: #39d353;">"generator"</span>: <span style="color: #a5d6ff;">"gpt2"</span>                            }
                         </div>
                         
                         <div style="margin: 1rem 0;">
-                            <span style="color: #ff7b72;">requirements</span> = {<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"ram"</span>: <span style="color: #a5d6ff;">"8GB minimum"</span>,<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"cpu_only"</span>: <span style="color: #79c0ff;">True</span>,<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"privacy"</span>: <span style="color: #a5d6ff;">"100% local processing"</span><br>
-                            }
+                            <span style="color: #ff7b72;">requirements</span> = {                            <span style="margin-left: 2rem; color: #39d353;">"ram"</span>: <span style="color: #a5d6ff;">"8GB minimum"</span>,                            <span style="margin-left: 2rem; color: #39d353;">"cpu_only"</span>: <span style="color: #79c0ff;">True</span>,                            <span style="margin-left: 2rem; color: #39d353;">"privacy"</span>: <span style="color: #a5d6ff;">"100% local processing"</span>                            }
                         </div>
                         
                         <div style="margin: 1rem 0;">
-                            <span style="color: #ff7b72;">performance</span> = {<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"resume_processing"</span>: <span style="color: #a5d6ff;">"30-60 seconds"</span>,<br>
-                            <span style="margin-left: 2rem; color: #39d353;">"cover_letter_gen"</span>: <span style="color: #a5d6ff;">"45-90 seconds"</span><br>
-                            }
+                            <span style="color: #ff7b72;">performance</span> = {                            <span style="margin-left: 2rem; color: #39d353;">"resume_processing"</span>: <span style="color: #a5d6ff;">"30-60 seconds"</span>,                            <span style="margin-left: 2rem; color: #39d353;">"cover_letter_gen"</span>: <span style="color: #a5d6ff;">"45-90 seconds"</span>                            }
                         </div>
                     </div>
                     
@@ -1091,21 +1073,11 @@ def create_web_app():
                     </h3>
                     
                     <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
-                        <span style="color: #39d353;"># Step 1: Input your resume</span><br>
-                        resume = upload_file() <span style="color: #7d8590;">or</span> paste_text()<br><br>
-                        
-                        <span style="color: #39d353;"># Step 2: Add job posting</span><br>
-                        job_desc = input(<span style="color: #a5d6ff;">"Complete job description"</span>)<br><br>
-                        
-                        <span style="color: #39d353;"># Step 3: Optional personalization</span><br>
-                        company = input(<span style="color: #a5d6ff;">"Company name"</span>)  <span style="color: #7d8590;"># Optional</span><br>
-                        position = input(<span style="color: #a5d6ff;">"Position title"</span>)  <span style="color: #7d8590;"># Optional</span><br><br>
-                        
-                        <span style="color: #39d353;"># Step 4: Execute AI generation</span><br>
-                        results = ai_engine.process(resume, job_desc, company, position)<br><br>
-                        
-                        <span style="color: #39d353;"># Step 5: Edit and export</span><br>
-                        <span style="color: #bc8cff;">return</span> edit_and_copy(results)
+                        <span style="color: #39d353;"># Step 1: Input your resume</span>                        resume = upload_file() <span style="color: #7d8590;">or</span> paste_text()<br>                        
+                        <span style="color: #39d353;"># Step 2: Add job posting</span>                        job_desc = input(<span style="color: #a5d6ff;">"Complete job description"</span>)<br>                        
+                        <span style="color: #39d353;"># Step 3: Optional personalization</span>                        company = input(<span style="color: #a5d6ff;">"Company name"</span>)  <span style="color: #7d8590;"># Optional</span>                        position = input(<span style="color: #a5d6ff;">"Position title"</span>)  <span style="color: #7d8590;"># Optional</span><br>                        
+                        <span style="color: #39d353;"># Step 4: Execute AI generation</span>                        results = ai_engine.process(resume, job_desc, company, position)<br>                        
+                        <span style="color: #39d353;"># Step 5: Edit and export</span>                        <span style="color: #bc8cff;">return</span> edit_and_copy(results)
                     </div>
                     
                     <h3 style="color: #58a6ff; font-size: 1.5rem; margin: 2rem 0 1rem 0;">
@@ -1113,20 +1085,11 @@ def create_web_app():
                     </h3>
                     
                     <div style="margin-left: 2rem; color: #7d8590; font-size: 14px;">
-                        tips = [<br>
-                        <span style="margin-left: 2rem; color: #a5d6ff;">"Include quantifiable achievements in resume"</span>,<br>
-                        <span style="margin-left: 2rem; color: #a5d6ff;">"Paste complete job posting for best results"</span>,<br>
-                        <span style="margin-left: 2rem; color: #a5d6ff;">"Add company name for personalized cover letters"</span>,<br>
-                        <span style="margin-left: 2rem; color: #a5d6ff;">"Review and edit AI-generated content"</span><br>
-                        ]<br>
-                        <span style="color: #bc8cff;">return</span> tips
+                        tips = [                        <span style="margin-left: 2rem; color: #a5d6ff;">"Include quantifiable achievements in resume"</span>,                        <span style="margin-left: 2rem; color: #a5d6ff;">"Paste complete job posting for best results"</span>,                        <span style="margin-left: 2rem; color: #a5d6ff;">"Add company name for personalized cover letters"</span>,                        <span style="margin-left: 2rem; color: #a5d6ff;">"Review and edit AI-generated content"</span>                        ]                        <span style="color: #bc8cff;">return</span> tips
                     </div>
                     
                     <div style="background: #21262d; border: 1px solid #30363d; padding: 1rem; border-radius: 6px; margin: 2rem 0; color: #7d8590; font-size: 12px;">
-                        <span style="color: #39d353;"># System Status: READY</span><br>
-                        <span style="color: #39d353;"># Models: LOADED</span><br>
-                        <span style="color: #39d353;"># Privacy: LOCAL_PROCESSING_ONLY</span><br>
-                        <span style="color: #39d353;"># Cost: FREE_FOREVER</span>
+                        <span style="color: #39d353;"># System Status: READY</span>                        <span style="color: #39d353;"># Models: LOADED</span>                        <span style="color: #39d353;"># Privacy: LOCAL_PROCESSING_ONLY</span>                        <span style="color: #39d353;"># Cost: FREE_FOREVER</span>
                     </div>
                 </div>
                 """)
